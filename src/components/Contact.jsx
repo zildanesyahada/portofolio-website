@@ -1,30 +1,26 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, Send, ArrowUp } from 'lucide-react';
+import { Mail, Phone, Send } from 'lucide-react';
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 export default function Contact() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <section id="contact" className="pt-6 pb-8 px-5 max-w-4xl mx-auto">
+    <section id="contact" className="py-12 px-5 max-w-5xl mx-auto">
       
-      {/* 1. JUDUL KAPSUL */}
+      {/* 1. JUDUL KAPSUL (Ukuran & Style Sama Persis) */}
       <motion.div 
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="flex justify-center mb-4 md:justify-start"
+        className="flex justify-center sm:justify-start mb-3"
       >
         <span className="px-5 py-1.5 rounded-full bg-[#DCE8F6] text-[#4A8FD0] font-mono text-xs font-bold tracking-[0.2em]">
           GET IN TOUCH
         </span>
       </motion.div>
 
-      {/* GRID CONTAINER UTAMA */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      {/* GRID CONTAINER UTAMA - KANAN & KIRI */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 items-start">
         
         {/* KOLOM KIRI: HEADLINE & TOMBOL CTA */}
         <motion.div
@@ -34,8 +30,8 @@ export default function Contact() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="space-y-4"
         >
-          {/* Heading utama */}
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+          {/* Heading utama (Disamakan ukurannya dengan H2 di Services) */}
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-snug">
             I'm always excited to learn and{' '}
             <span className="text-[#4A8FD0]">build.</span>
           </h2>
@@ -63,7 +59,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.15 }}
-          className="space-y-5 md:pl-6"
+          className="space-y-5 sm:pl-4 md:pl-6"
         >
           {/* Email Item */}
           <div className="flex items-center gap-3.5">

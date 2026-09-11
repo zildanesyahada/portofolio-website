@@ -8,7 +8,6 @@ const servicesData = [
     description: 'Menerjemahkan desain Figma menjadi kode yang presisi pixel dan kaya mikro-interaksi.',
     icon: <Palette className="w-5 h-5 text-[#4A8FD0]" />,
     skills: ['Figma to Code', 'Design System', 'Interactive Prototype'],
-    popular: false,
   },
   {
     id: 2,
@@ -16,7 +15,6 @@ const servicesData = [
     description: 'Pengembangan aplikasi mobile multiplatform dengan tampilan intuitif dan seamless.',
     icon: <Smartphone className="w-5 h-5 text-[#4A8FD0]" />,
     skills: ['Flutter & React Native', 'Cross-Platform App', 'Mobile-First Design'],
-    popular: false,
   },
   {
     id: 3,
@@ -24,7 +22,6 @@ const servicesData = [
     description: 'Membangun antarmuka web modern, cepat, dan responsif dengan performa tinggi.',
     icon: <Code2 className="w-5 h-5 text-[#4A8FD0]" />,
     skills: ['React & Next.js', 'Tailwind CSS', 'Framer Motion Animations'],
-    popular: true,
   },
   {
     id: 4,
@@ -32,14 +29,12 @@ const servicesData = [
     description: 'Merancang arsitektur server, basis data, dan RESTful API yang aman serta handal.',
     icon: <Server className="w-5 h-5 text-[#4A8FD0]" />,
     skills: ['Node.js & Laravel', 'Database MySQL/Firebase', 'RESTful API Integration'],
-    popular: false,
-
   },
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="py-12 px-5 max-w-md mx-auto">
+    <section id="services" className="py-12 px-5 max-w-5xl mx-auto">
       
       {/* 1. JUDUL KAPSUL */}
       <motion.div 
@@ -47,7 +42,7 @@ export default function Services() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="flex justify-center mb-3"
+        className="flex justify-center sm:justify-start mb-3"
       >
         <span className="px-5 py-1.5 rounded-full bg-[#DCE8F6] text-[#4A8FD0] font-mono text-xs font-bold tracking-[0.2em]">
           WHAT I CAN DO
@@ -60,15 +55,15 @@ export default function Services() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="text-center mb-6"
+        className="text-left mb-8"
       >
-        <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
           Services & Solutions
         </h2>
       </motion.div>
 
-      {/* 2. DAFTAR KARTU LAYANAN */}
-      <div className="space-y-4">
+      {/* 2. DAFTAR KARTU LAYANAN - GRID 2 KOLOM (KANAN - KIRI) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {servicesData.map((service, index) => (
           <motion.div
             key={service.id}
@@ -76,14 +71,10 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: index * 0.08 }}
-            className={`p-5 rounded-2xl border transition-all duration-300 relative overflow-hidden ${
-              service.popular
-                ? 'bg-white border-[#4A8FD0]/60 shadow-md shadow-[#4A8FD0]/5'
-                : 'bg-white border-slate-200/80 shadow-sm'
-            }`}
+            className="p-5 rounded-2xl border border-slate-200/80 bg-white shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
           >
             {/* Header Kartu */}
-            <div className="flex items-start gap-3.5 mb-3">
+            <div className="flex items-start gap-3.5 mb-4">
               <div className="w-10 h-10 rounded-xl bg-[#4A8FD0]/10 flex items-center justify-center shrink-0">
                 {service.icon}
               </div>

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Navbar() {
   const [activeTab, setActiveTab] = useState('Home');
+  const isClickingRef = useRef(false);
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -12,15 +13,55 @@ export default function Navbar() {
     { name: 'Contact', href: '#contact' },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isClickingRef.current) return;
+
+      const scrollPosition = window.scrollY + 100;
+
+      navItems.forEach((item) => {
+        const targetId = item.href.replace('#', '');
+        const element = document.getElementById(targetId);
+
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveTab(item.name);
+          }
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleNavClick = (e, name, href) => {
     e.preventDefault();
     setActiveTab(name);
+
+    isClickingRef.current = true;
 
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
 
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const navbarOffset = 50;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+
+      setTimeout(() => {
+        isClickingRef.current = false;
+      }, 800);
+    } else {
+      isClickingRef.current = false;
     }
   };
 
@@ -29,10 +70,8 @@ export default function Navbar() {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      /* Posisi dikunci tepat di tengah horizontal menggunakan left-1/2 dan -translate-x-1/2 */
       className="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-full max-w-[calc(100vw-1.5rem)] sm:max-w-max pointer-events-none flex justify-center"
     >
-      {/* Container Utama: Menggunakan flex-wrap atau shrink agar tidak memicu scrollbar */}
       <nav className="pointer-events-auto flex items-center justify-center gap-0.5 p-1 rounded-full bg-white/80 backdrop-blur-md border border-slate-200/80 shadow-lg shadow-slate-900/5 max-w-full overflow-hidden">
         {navItems.map((item) => {
           const isActive = activeTab === item.name;
@@ -47,7 +86,6 @@ export default function Navbar() {
                   : 'text-slate-600 hover:text-[#4A8FD0]'
               }`}
             >
-              {/* Animasi Pil Biru Meluncur */}
               {isActive && (
                 <motion.div
                   layoutId="active-pill"
